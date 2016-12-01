@@ -1,0 +1,119 @@
+.profile-wrap{
+  margin: 0 auto;
+  text-align: center;
+  .mail{
+    margin-top: 30px;
+    span{
+      font-family: 'HelveticaNeueLight';
+      font-weight: bold;
+      font-size: 18px;
+      display: block;
+    }
+  }
+  input[value='EDIT PROFILE']{
+     margin-top: 30px;
+     width: 365px;
+  }
+  .animation{
+    margin-top: 100px;
+    width: 71%;
+    height: 230px;
+    margin-right: 17%;
+    margin-left: auto;
+    .left-animation, .right-animation{
+      width: 40%;
+      position: relative;
+      float: left;
+      .img-cont{
+        width: 85%;
+        position: absolute;
+        top: 28%;
+        right: -2px;
+        text-align: center;
+        cursor: pointer;
+        p{
+          font-family: 'HelveticaNeueLight';
+          font-size:  1.8vw;
+          color: white;
+          span{
+            font-size: 3.5vw;
+            font-weight: bold;
+            line-height: 1;
+            display: block;
+            padding-top: 1vw;
+            margin-bottom: -2vw;
+          }
+        }
+      }
+      img{
+        width: 100%;
+      }
+    }
+    .left-animation{
+      // @-webkit-keyframes opacity-anim-right{
+      //   0%{
+      //     opacity: 1
+      //   }
+      //   100%{
+      //     opacity: 0.5
+      //   }
+      // }
+      img{
+
+      }
+    }
+    .right-animation{
+      width: 40%;
+      float: right;
+      img{
+    //    animation: opacity-anim-right 5s 10s infinite;
+
+        width: 100%;
+      }
+      .arrow-text{
+        position: absolute;
+        top: 4%;
+        right: -54%;
+        font-family: 'HelveticaNeueLight';
+        font-size: 1.7vw;
+        width: 65%;
+        span{
+          font-weight: bold;
+        }
+
+      }
+      .arrow-img{
+        position: absolute;
+        top: -6%;
+        right: -15%;
+        width: 40%;
+      }
+    }
+  }
+  .blinking{
+    -webkit-animation: blink 2s infinite;
+    -moz-animation: blink 2s infinite;
+    animation: blink 2s infinite;
+  }
+
+  @-webkit-keyframes blink{
+
+      0%{ opacity:0;}
+      100%{opacity:1;}
+  }
+
+  @-moz-keyframes blink{
+
+      0%{ opacity:0;}
+      100%{opacity:1;}
+
+  }
+
+  @keyframes blink{
+
+      0%{ opacity:0;}
+      100%{opacity:1;}
+
+  }
+
+}

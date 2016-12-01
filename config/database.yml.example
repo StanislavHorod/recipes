@@ -1,0 +1,21 @@
+# postgres configs
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: 5
+
+development:
+  <<: *default
+  database: wholesum_development
+
+test:
+  <<: *default
+  database: wholesum_test
+
+production:
+  <<: *default
+  database: wholesum_production
+  username: wholesum
+  password: <%= ENV['WHOLESUM_DATABASE_PASSWORD'] %>

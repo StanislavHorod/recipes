@@ -1,0 +1,48 @@
+<div id="videoModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-md">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body col-centered">
+        <iframe id="youtube" src="https://www.youtube.com/embed/ScMzIvxBSi4?rel=0&enablejsapi=1"  frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+
+  </div>
+</div>
+<script src="//www.youtube.com/player_api"></script>
+<script>
+// global variable for the player
+var player;
+
+// this function gets called when API is ready to use
+function onYouTubePlayerAPIReady() {
+  // create the global player from the specific iframe (#video)
+  player = new YT.Player('youtube', {
+    events: {
+      // call this function when player is ready to use
+      'onReady': onPlayerReady
+    }
+  });
+}
+
+
+function onPlayerReady(event) {
+  $('.close').on('click', function(){
+    player.pauseVideo();
+  });
+  $('.play-btn').on('click', function(){
+    player.playVideo();
+  });
+}
+
+// Inject YouTube API script
+var tag = document.createElement('script');
+tag.src = "//www.youtube.com/player_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+</script>

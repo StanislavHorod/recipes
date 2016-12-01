@@ -1,0 +1,259 @@
+<%= render "/layouts/home_header"%>
+<%= render 'video' %>
+
+<div class="cont">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="trial">
+      <div class="content-wrap">
+        <div class="content">
+          <h1> Recipe &amp; purchase<br>planning for groups</h1>
+          <span class="subheading">
+            Save time. Save money. Reduce food waste.
+          </span>
+          <p>
+            Planning meals for groups can be tough.
+            Whether you're planning a week-long camping field trip for a classroom,
+            coordinating meals for your next office retreat,
+            catering a full wedding or selling jam at the farmer's market,
+            Wholesum Food Calculator can help.
+          </p>
+          <a href="<%= new_user_registration_path %>" class="take_trial">30-Day Free Trial</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="row">
+      <div class="menu_plans">
+        <div class="col-md-4 col-sm-4 section">
+          <div class="item meal_plans">
+            <h3 class="">Meal plans</h3>
+            <p>
+              Create sharable meal plans with recipes
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-4 section">
+          <div class="item dietary">
+            <h3>Accommodate Dietary Restrictions</h3>
+            <p>
+              Add or exclude meals based on the dietary restrictions in your group
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-4 section">
+          <div class="item shopping_list">
+            <h3 class="">Shopping List</h3>
+            <p>
+              Create a thorough shopping list for your entire group's meals
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-4 section">
+          <div class="item group_size">
+            <h3 class="">Group Size</h3>
+            <p>
+              Adjust recipes and shopping list based on group size
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-4 section">
+          <div class="item appetit">
+            <h3 class="">Appetite Size</h3>
+            <p>
+              Have some a few big-eaters? Indicate the appetite sizes inyour group to adjust recipes and shopping lists accordingly
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-4 section">
+          <div class="item inventory">
+            <h3 class="">Inventory</h3>
+            <p>
+              Track what's in stock already with inventory and purchasing notes
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-4 section">
+          <div class="item estimate">
+            <h3 class="">Estimate Costs</h3>
+            <p>
+              Keep track of costs per recipe, per group or per serving
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-4 section">
+          <div class="item labels">
+            <h3 class="">Nutrition Labels</h3>
+            <p>
+              Generate and Print customized nutrition labels for products
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-4 section">
+          <div class="item organize">
+            <h3 class="">Organize Meals</h3>
+            <p>
+              Create custom recipe tags to group, sort and filter meals
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ipad_video">
+  <div class="cont">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="col-md-6 col-sm-6">
+        <div class="text">
+          <h2>Food calculation</h2>
+          <span>Take a look at how it works</span>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6">
+        <%=image_tag "ipad.png", class: "img-responsive"%>
+        <a data-target="#videoModal" data-toggle="modal">
+          <%=image_tag "play_ico.png", class: "play-btn"%>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="new_bg">
+  <div class="cont">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <section class="info_wrap">
+        <h2>IS WHOLESUM FOR ME?</h2>
+        <p>
+          WHOLESUM Food Calculator can be used in a wide range of cases. Get some ideas for how you can plan your next
+          recipe, shopping trip or meal plan below.
+        </p>
+        <article class="col-md-4 col-sm-4">
+          <div class="item-info">
+            <h3 class="h3-after">OUTDOoR TRIPS</h3>
+            <%=image_tag "info_img1.jpg", class: "img-responsive" %>
+            <ul>
+              <li>Outfitters</li>
+              <li>Guiding services</li>
+              <li>Educational Travel</li>
+              <li>Personal Camping Trips</li>
+              <li>University Outdoor Clubs</li>
+            </ul>
+          </div>
+        </article>
+        <article class="col-md-4 col-sm-4">
+          <div class="item-info">
+            <h3 class="h3-after">EVENT CATERING</h3>
+            <%=image_tag "info_img2.jpg", class: "img-responsive" %>
+            <ul>
+              <li>Weddings</li>
+              <li>Large Gatherings</li>
+              <li>Corporate Retreats</li>
+              <li>Hosting Parties</li>
+            </ul>
+          </div>
+        </article>
+        <article class="col-md-4 col-sm-4">
+          <div class="item-info">
+            <h3 class="h3-after">SMALL BUSINESSES</h3>
+            <%=image_tag "info_img3.jpg", class: "img-responsive" %>
+            <ul>
+              <li>Value-added Products</li>
+              <li>Bed &amp; Breakfasts</li>
+              <li>Retreat Centers</li>
+              <li>Farmer's Market Stands</li>
+            </ul>
+          </div>
+        </article>
+      </section>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <section class="reviews">
+        <h2>RAVE REVIEWS</h2>
+        <div class="review-slick">
+          <div class="review">
+            <span>Cris Miller</span>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus, sapien non semper vestibulum, orci nisi rutrum ex, at rutrum neque ipsum sed elit. Integer laoreet vitae nunc malesuada placerat. Donec sagittis sem ac rhoncus interdum.
+              Vivamus sagittis vel risus sed porta. In pharetra libero quis magna accumsan vehicula. Aliquam libero sem, mattis in mi at, bibendum egestas ex. Mauris at lobortis dolor.
+              Nunc vitae ligula efficitur, tincidunt nisl vel, interdum nisi.
+            </p>
+          </div>
+          <div class="review">
+            <span>Cris Miller</span>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus, sapien non semper vestibulum, orci nisi rutrum ex, at rutrum neque ipsum sed elit. Integer laoreet vitae nunc malesuada placerat. Donec sagittis sem ac rhoncus interdum.
+              Vivamus sagittis vel risus sed porta. In pharetra libero quis magna accumsan vehicula. Aliquam libero sem, mattis in mi at, bibendum egestas ex. Mauris at lobortis dolor.
+              Nunc vitae ligula efficitur, tincidunt nisl vel, interdum nisi.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <section class="clients">
+        <h2>Our Clients</h2>
+        <div class="clients-slick">
+          <div class="client-logo">
+            <%=image_tag "client3.png" %>
+          </div>
+          <div class="client-logo">
+            <%=image_tag "client1.png" %>
+          </div>
+          <div class="client-logo">
+            <%=image_tag "client2.png" %>
+          </div>
+          <div class="client-logo">
+            <%=image_tag "client2.png" %>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".menu_plans h3").each(function(){
+    var fontH = parseInt($(this).css("font-size"))+2;
+    if($(this).height()<=fontH){
+      $(this).addClass("h3-after");
+    }
+  });
+  $(".review-slick").slick({
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    dots: true,
+    autoplay: true,
+    autoplaySpeed: 7000
+  });
+  $(".clients-slick").slick({
+    // infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 2,
+    responsive: [
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  });
+  //video on image
+  $('.close').on('click', function(){
+
+  });
+});
+</script>

@@ -1,0 +1,68 @@
+<%= render '/layouts/header' %>
+
+<div class="cont">
+  <div class="col-md-12 col-sm-12 col-xs-12 profile-wrap">
+    <div class="profile">
+      <h1>MY PROFILE</h1>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br>
+        Proin et porta nunc. In aliquam lacinia ullamcorper.
+      </p>
+    </div>
+    <div class="mail" >
+      <span>lub4uk07@gmail.com</span>
+      <span>first_name last_name</span>
+    </div>
+    <input type="button" name="name" value="EDIT PROFILE" class="submit-button" >
+    <div id="edit-page" style="display:none; ">
+    </div>
+    <div class="animation">
+      <div class="left-animation">
+        <%= image_tag 'profile_animation1.png' %>
+        <div class="img-cont">
+          <p>
+            pay only <br /> <span>$9</span> <br /> per month
+          </p>
+        </div>
+      </div>
+      <div class="right-animation">
+        <%= image_tag 'profile_animation2.png', id: "right-img"%>
+        <%= image_tag 'arrow.png', class: "arrow-img"%>
+        <p class="arrow-text">
+          and save <span>20%</span>
+        </p>
+        <div class="img-cont">
+          <p>
+            pay annually <br /> <span>$9</span> <br /> per year
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#edit-page').load('users/edit #edit-profile', function() {
+    $("#back").on('click',function () {
+      $('#edit-page').slideUp(750);
+      $('input[value="EDIT PROFILE"]').show(1000);
+      $('.mail').show(1000);
+    });
+  });
+
+  $('.profile-wrap .submit-button').on('click',function() {
+    $('input[value="EDIT PROFILE"]').hide();
+    $('.mail').hide();
+    //$('#edit-page').css('display','block');
+    $('#edit-page').slideDown(4000);
+  });
+  function blinker() {
+    $(".left-animation img").fadeTo(1000,0.5).delay(2000).fadeTo(1000,1).delay(300).fadeTo(1000,0.5).delay(100).fadeTo(1000,1).delay(9000);
+    // sleep(3000);
+    $(".right-animation #right-img").delay(9000).fadeTo(1000,0.5).delay(100).fadeTo(1000,1).delay(300).fadeTo(1000,0.5).delay(100).fadeTo(1000,1);
+  }
+  blinker();
+  setInterval(blinker,18000);
+});
+</script>

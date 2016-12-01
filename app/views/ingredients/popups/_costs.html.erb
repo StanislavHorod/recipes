@@ -1,0 +1,75 @@
+<div id="calc_Modal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span>Please enter the cost of  this ingredient
+          and the amount purchased</span>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <%= form_tag create_price_path, method: :post, remote: true, id: 'create_price_form' do %>
+        <div class="modal-body col-centered">
+          <div>
+            <label>Purchace Price per Unit:</label>
+            <span id="dolar_sign">$</span>
+            <%= text_field_tag :price, nil, placeholder: '0.00', class: 'form-control inputs', id: 'price_input', required: true %>
+          </div>
+          <%= hidden_field_tag :ingredient_id, nil, { id: 'price_ingredient_id' } %>
+          <div>
+            <label>Purchace Quantity:</label>
+            <span id="span_input">
+              <%= select_tag :unit_id, {}, { id: 'select_price_unit', class: 'form-control inputs box_input' } %>
+              <span class="lock-icon"></span>
+            </span>
+          </div>
+          <div>
+            <%= submit_tag 'SAVE', id: 'submit', class: 'submit-button' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+
+    $("#price_input").on("keyup", function () {
+      if ($("#price_input").val() == "") {
+        $("#dolar_sign").css("color", "#B5B5B5");
+      }
+      else {
+        $("#dolar_sign").css("color", "black");
+      }
+    });
+
+    var testPrice = /^\d{0,4}(\.\d{1,2})?$/;
+    //  /^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/;
+    $('input#price_input').bind('input propertychange', function () {
+      if (testPrice.test($(this).val())) {
+        $(this).css({'border': '1px solid #B5B5B5'});
+        $('#submit').prop("disabled", false);
+      } else {
+        $(this).css({'border': '1px solid red'});
+        $('#submit').prop("disabled", true);
+      }
+    });
+
+    $('#select_price_unit').on('change', function() {
+      var unit_id = $(this).val();
+      var ingredient_id = $('#price_ingredient_id').val();
+
+      $.ajax({
+        url: '/get_price',
+        data: {
+          'unit_id': unit_id,
+          'ingredient_id': ingredient_id
+        },
+        type: 'post',
+        success: function(data){
+          $('#price_input').val(data.price.toFixed(2));
+        }
+      });
+    });
+
+  });
+</script>

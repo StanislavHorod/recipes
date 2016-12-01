@@ -1,0 +1,124 @@
+<div id="nutrient_Modal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header" >
+        <div class = "header-search">
+          <input type="text" class="form-control inputs" placeholder="search" id="search_usda_input" data-toggle="tooltip" data-placement="top" title="Enter more charachters!">
+          <span></span>
+        </div>
+        <span>USDA nutrient data</span>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body" >
+        <table class="table" id="glass_table">
+          <col style="width:20%">
+          <col style="width:40%">
+          <col style="width:40%">
+          <thead>
+            <tr>
+              <th>
+                NDB No.
+              </th>
+              <th>
+                DESCRIPTION
+              </th>
+              <th>
+                FOOD GROUP
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+  $(".ingredients").on("click", ".glass", function(){
+    var glass_btn = $(this); // кнопочка usda
+    var usda_id = $(this).parent("td").children(".ingredient_usda_id"); // прихований інпут інгредієнта для usda
+    var name_elem = $(this).parents("tr").find(".ingredient_name"); // назва інгредієнту
+    var unit_select = $(this).parents("tr").find(".unit_select"); // селект для юнітів
+    var unit_type = $(this).parents("tr").find(".ingredient_unit_type"); // хіден для типу юніта
+    var usda_units = $(this).parents("tr").find(".usda_units"); // всі доступні usda юніти
+
+    $('#nutrient_Modal').on('show.bs.modal',function(){
+      $('#search_usda_input').val(name_elem.val());
+    });
+
+    var new_name = name_elem.val();
+    new_name=new_name.replace(/[^A-Z0-9\s]/gi, "").replace(/\s\s+/g, ' ');
+    new_name=$.trim(new_name);
+    if(new_name.length > 2) {
+      update_usda_table(new_name, glass_btn, usda_id, unit_select, unit_type);
+    }
+
+    $('#search_usda_input').on('change', function(){
+      var new_name = $(this).val();
+      new_name=new_name.replace(/[^A-Z0-9\s]/gi, "").replace(/\s\s+/g, ' ');
+      new_name=$.trim(new_name);
+      if(new_name.length > 2){
+        update_usda_table(new_name, glass_btn, usda_id, unit_select, unit_type);
+        $(this).tooltip('hide');
+      } else{
+        $(this).tooltip('show');
+      }
+    });
+  });
+
+  function update_usda_table(name, glass_btn, usda_id, unit_select, unit_type){
+    $.ajax({
+      url: '/get_ingredients_from_usda',
+      data: {
+        'name': name
+      },
+      type: 'post',
+      success: function (data) {
+        $('#glass_table').find("tr:gt(0)").remove();
+        for (var i in data.food) {
+          $('#glass_table tbody').append(
+            $('<tr/>', {
+              'class': (usda_id.val() == data.food[i].nutrient_databank_number ? 'usda_id_checked' : ''),
+              'data-num': data.food[i].nutrient_databank_number
+            }).append(
+              $('<td/>', {
+                  'text': data.food[i].nutrient_databank_number
+              }),
+              $('<td/>', {
+                'text': data.food[i].short_description
+              }),
+              $('<td/>', {
+                'text': data.food[i].food_group.description
+              })
+            )
+          );
+        }
+        $('#glass_table tbody tr').on("click", function () {
+          var nutrient_databank_number = $(this).children("td:first-child").text();
+          usda_id.val(nutrient_databank_number);
+          $.ajax({
+            url: '/get_units_from_usda',
+            data: {
+              'id': nutrient_databank_number
+            },
+            type: 'post',
+            success: function (data) {
+              unit_select.find('option').remove();
+              for (var i in data.units) {
+                unit_select.append(new Option(data.units[i].name, data.units[i].id));
+              }
+              unit_type.val(<%= UnitType.find_by(name: 'USDA').id %>);
+            }
+          });
+          $('#nutrient_Modal').modal('hide');
+          glass_btn.css({"background-color": "#C3D1C7", "border-radius": "3px"});
+        });
+      }
+    });
+  }
+});
+</script>

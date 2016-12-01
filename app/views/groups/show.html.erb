@@ -1,0 +1,102 @@
+<%= render '/layouts/header' %>
+
+<div class="col-md-8 col-sm-8 col-xs-8 show-content">
+  <h1><%= @group.name %></h1>
+  <div class="upper-wrap">
+    <div class="total">
+      <div>
+        <span class="total-label">TOTAL INDIVIDUALS</span>
+        <span class="quantity"><%= @group.total_individuals %></span>
+      </div>
+      <div class="pull-down">
+        <span class="total-label">TOTAL SERVINGS</span>
+        <span class="quantity"><%= @group.total_servings %></span>
+      </div>
+      <span><%= @group.description %></span>
+    </div>
+    <div class="pdf-button">
+      <span>DOWNLOAD PDF</span>
+    </div>
+  </div>
+  <div class="small-table">
+    <table class="table">
+      <colgroup><col style="width:14%">
+            <col style="width:40%">
+            <col style="width:30%">
+            <col style="width:30%">
+      </colgroup>
+      <thead>
+        <tr>
+          <td>RECIPE</td>
+          <td># of times served</td>
+          <td># of individuals served</td>
+        </tr>
+      </thead>
+      <tbody>
+      <% @group_recipes.each do |g_recipe| %>
+        <tr>
+          <td><%= g_recipe.recipe.name %></td>
+          <td><%= g_recipe.quantity %></td>
+          <td>0</td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="col-md-11 col-sm-11 col-xs-11 show-content">
+  <div class="small-table">
+  <table class="table text-left">
+    <colgroup>
+          <col style="width:4%">
+          <col style="width:8.5%">
+          <col style="width:10.2%">
+          <col style="width:13.2%">
+          <col style="width:9.8%">
+          <col style="width:11%">
+          <col style="width:17%">
+          <col style="width:14.9%">
+          <col style="width:11%">
+    </colgroup>
+    <thead>
+      <tr>
+        <td class=""><div class="check-icon">
+
+        </div></td>
+        <td>QTY</td>
+        <td>UNIT</td>
+        <td>ITEM</td>
+        <td>STORE</td>
+        <td>MEAL(S)</td>
+        <td>INVENTORY NOTES</td>
+        <td>US</td>
+        <td>METRIC</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% @ingredients.each do |ingredient| %>
+        <tr>
+          <td class="checkbox-icon">
+            <input type="checkbox" name="checkboxx" id="checkboxx">
+            <label for="checkboxx"></label>
+          </td>
+          <td>30</td>
+          <td>Cups</td>
+          <td><%= ingredient.name %></td>
+          <td><%= ingredient.store %></td>
+          <td>
+            <span>
+              <% ingredient.recipes.in_group(@group.id).each do |recipe| %>
+                <%= link_to recipe.name, edit_recipe_path(recipe.id) %>
+              <% end %>
+            </span>
+          </td>
+          <td><%= ingredient.note %></td>
+          <td>33 g</td>
+          <td>33 ml</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+</div>

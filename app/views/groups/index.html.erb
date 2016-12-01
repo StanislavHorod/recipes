@@ -1,0 +1,68 @@
+<%= render '/layouts/header' %>
+
+<div class="cont">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="recipes-wrap">
+      <h1>My meal plans</h1>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br>
+        Proin et porta nunc. In aliquam lacinia ullamcorper.
+      </p>
+      <section class="col-md-12 col-sm-12 col-xs-12">
+        <div class="row" style="margin:0;">
+          <div class="add-recipe">
+            <%= link_to new_group_path do %>
+              <span class="plus"></span>
+              <span id="span-add">ADD MEAL PLAN</span>
+            <% end %>
+          </div>
+        </div>
+      </section>
+
+      <section class="recipes-list">
+        <table class="table" >
+          <col style="width:75%">
+          <col style="width:25%">
+          <% @groups.each do |group| %>
+            <tr>
+              <td><%= link_to group.name, group_path(group.id) %></td>
+              <td>
+                <%= link_to 'Edit', edit_group_path(group.id) %>
+                <span class="devider">/</span>
+                <%= link_to 'Delete', '#', class: 'delete_link', 'data-id' => group.id %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      </section>
+    </div>
+  </div>
+</div>
+
+<%= render 'groups/popups/remove_confirmation' %>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $("[href='/groups']").addClass("active");
+
+  $('.delete_link').on('click', function(e) {
+    e.preventDefault();
+
+    var row = $(this).parents('tr');
+    var id = $(this).data('id');
+
+    $('.confirm_button').off('click');
+    $('.confirm_button').on('click', function functionName() {
+      $.ajax({
+        method: 'DELETE',
+        url: '<%= groups_path %>' + '/' + id
+      }).done(function() {
+        row.remove();
+      });
+    });
+
+    $('#remove_confirmation_Modal').modal();
+  });
+});
+
+</script>

@@ -1,0 +1,83 @@
+
+$link: #6CA085;
+$dark-green: #515B42;
+$but-hover: #4e7561;
+
+// login | registration | forgot-password | change-pass | confirmation
+.inputs{
+  height: 40px;
+  border-radius: 3px;
+  max-width: 365px;
+  outline: none;
+  &:focus{
+    outline: none;
+    border-color: #ccc;
+    box-shadow: none;
+  }
+}
+
+h2.title {
+  margin: 20px auto; text-align: center;
+}
+
+p.explanation {
+  text-align: center; padding: 0 10%;
+}
+
+.submit-button{
+  width: 100%;
+  height: 45px;
+  border-radius: 6px;
+  box-shadow: none;
+  background-color: $dark-green;
+  text-transform: uppercase;
+  border: none;
+  color: #fff;
+  &:hover{
+    background-color: #19462f;
+  }
+}
+
+.authorization{
+  margin: 30px auto;
+  text-align: center;
+  width: 500px;
+  form{
+    width: 365px;
+    margin: 15px auto 0;
+  }
+  .field{
+    margin-top: 15px;
+  }
+  .field.check{
+    text-align: left;
+  }
+  .actions{
+    margin: 25px 0 10px;
+  }
+  // .users-links{
+  //   text-align: left;
+  // }
+}
+#error_explanation{
+  border: 1px solid #C30606;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.55);
+  text-align: left;
+  padding: 0 15px 15px;
+  h4{
+    font-weight: bold;
+    font-size: 15px;
+  }
+  ul{
+    padding-left: 10px;
+    li{
+      list-style: none;
+      &:before {
+        content: "\2717";
+        display: inline-block;
+        margin-right: 10px;
+      }
+    }
+  }
+}

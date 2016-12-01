@@ -1,0 +1,368 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ $link: #6CA085;
+ $dark-green: #515B42;
+ $but-hover: #4e7561;
+ $orange: #EFA94A;
+ $orange-hover: #DE993C;
+/* Home Page */
+
+span.subheading{
+  color: $link;
+  font-style: italic;
+}
+.trial{
+  width: 70%;
+  max-width: 940px;
+  min-height: 600px;
+  padding: 50px 0;
+  margin: 30px auto;
+  background: image_url("bg_trial.jpg") center center no-repeat;
+  background-size: cover;
+  .content-wrap{
+    width: 70%;
+    text-align: center;
+    margin: 30px auto;
+    // &:before{
+      content: "";
+      border-color: rgba(255, 255, 255, 0.5);
+      border-style: solid;
+      border-top-width: 20px;
+      border-bottom-width: 20px;
+      border-left-width: 30px;
+      border-right-width: 30px;
+      box-sizing: border-box;
+    // }
+    .content{
+      background-color: rgba(255, 255, 255, 0.9);
+      width: 100%;
+      padding: 50px 30px 1px;
+      margin: 0 auto;
+      h1{ font-size: 3vw; }
+      p{
+        margin-top: 15px;
+        font-family: 'HelveticaNeueLight';
+        letter-spacing: 1px;
+        font-size: 16px;
+        // margin-bottom: 15px;
+      }
+      .take_trial{
+        display: block;
+        background-color: $orange;
+        text-transform: uppercase;
+        font-family: "SegoeUIBlack", sans-serif;
+        letter-spacing: 1px;
+        height: 60px;
+        width: 210px;
+        max-width: 100%;
+        color: #fff;
+        border-radius: 10px;
+        line-height: 60px;
+        margin: 30px auto;
+        &:hover{
+          background-color:  $orange-hover;
+        }
+      }
+    }
+  }
+}
+
+@keyframes hvr-wobble-vertical {
+  16.65% {
+    -webkit-transform: translateY(8px);
+    transform: translateY(8px);
+  }
+
+  33.3% {
+    -webkit-transform: translateY(-6px);
+    transform: translateY(-6px);
+  }
+
+  49.95% {
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
+  }
+
+  66.6% {
+    -webkit-transform: translateY(-2px);
+    transform: translateY(-2px);
+  }
+
+  83.25% {
+    -webkit-transform: translateY(1px);
+    transform: translateY(1px);
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+.menu_plans{
+  .section{
+    text-align: center;
+    margin-bottom: 15px;
+    &:nth-child(3n+1){
+      clear: left;
+    }
+    .item {
+      max-width: 270px;
+      margin: 0 auto;
+      font-size: 17px;
+      h3{margin-top: 0;}
+      &::before{
+        content: "";
+        display: block;
+        width: 60px;
+        height: 90px;
+        text-align: center;
+        margin: 0 auto 10px;
+        background: image_url("sprite.png") -2px 0 no-repeat;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      &:hover:before{
+        -webkit-animation-name: hvr-wobble-vertical;
+        animation-name: hvr-wobble-vertical;
+        -webkit-animation-duration: 1s;
+        animation-duration: 1s;
+        -webkit-animation-timing-function: ease-in-out;
+        animation-timing-function: ease-in-out;
+        -webkit-animation-iteration-count: 1;
+        animation-iteration-count: 1;
+      }
+    }
+    .item.dietary::before{
+      background-position: -80px 0;
+    }
+    .item.shopping_list::before{
+      width: 62px;
+      background-position: -160px 0;
+    }
+    .item.group_size::before{
+      width: 112px;
+      background-position: -240px 0;
+    }
+    .item.appetit::before{
+      width: 120px;
+      background-position: -368px 0;
+    }
+    .item.inventory::before{
+      background-position: -524px -2px;
+    }
+    .item.labels::before{
+      background-position: -606px 0;
+    }
+    .item.estimate::before{
+      width: 80px;
+      background-position: -684px 0;
+    }
+    .item.organize::before{
+      background-position: -799px -2px;
+    }
+    p{
+      font-family: "HelveticaNeueRoman";
+      letter-spacing: 1px;
+    }
+  }
+}
+
+.ipad_video{
+  margin-top: 30px;
+  padding: 15px;
+  float: left;
+  width: 100%;
+  background: image_url("bg_ipad.jpg") center top no-repeat;
+  background-size: cover;
+  .play-btn{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -64px;
+    margin-left: -64px;
+    cursor: pointer;
+  }
+  .img-responsive{
+    margin: 0 auto;
+  }
+  .text{
+    text-align: center;
+    color: #fff;
+    margin-top: 250px;
+    h2{
+      font-size: 5vw;
+      font-family: "Lobster";
+      letter-spacing: 5px;
+      text-transform: none;
+      font-weight: normal;
+    }
+    span{
+      font-size: 32px;
+    }
+  }
+}
+#videoModal{
+  iframe{
+    width: 100%;
+    height: 390px;
+
+  }
+}
+
+.new_bg{
+  background: image_url("bg_header.png") center -20px no-repeat;
+  background-size: contain;
+  float: left;
+  width: 100%;
+  h2{
+    font-size: 45px;
+    color: #515b42;
+    font-family: "SegoeUI", sans-serif;
+    text-transform: uppercase;
+  }
+  p{
+    font-size: 16px;
+  }
+}
+
+.info_wrap{
+  margin-top: 100px;
+  text-align: center;
+  p{
+    width: 60%;
+    margin: 30px auto;
+  }
+  article:nth-child(3n){
+    clear: left;
+  }
+  .item-info{
+    width: 80%;
+    margin: 0 auto;
+
+    ul{
+      text-align: left;
+      padding-left: 15px;
+      margin-top: 10px;
+      li{
+        list-style: none;
+        font-family: 'HelveticaNeueLight';
+        letter-spacing: 1px;
+        font-size: 16px;
+        &:before{
+          content: "- ";
+          display: inline-block;
+          font-size: 20px;
+          line-height: 13px;
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+}
+
+.reviews{
+  margin-top: 50px;
+  text-align: center;
+  .review{
+    margin: 15px auto;
+    span{
+      display: block;
+      text-transform: uppercase;
+      font-size: 18px;
+      margin: 15px auto;
+    }
+    p{
+      font-family: 'HelveticaNeueLight';
+      font-size: 16px;
+      width: 70%;
+      margin: 0 auto;
+      letter-spacing: 1px;
+    }
+  }
+}
+
+.clients{
+  margin: 50px auto 30px;
+  text-align: center;
+  h2{
+    margin-bottom: 30px;
+  }
+  img{
+    margin: 0 auto;
+    max-width: 100%;
+  }
+  .clients-slick{
+    width: 90%;
+    margin: 0 auto;
+    .client-logo{
+      // height: 160px;
+      // line-height: 160px;
+    }
+    .slick-initialized .slick-slide{
+      display: inline-block;
+      float: none;
+    }
+  }
+}
+
+.h3-after::after{
+  content: "";
+  display: block;
+  margin: 15px auto;
+  height: 10px;
+  width: 60px;
+  background: image_url("sprite.png") -2px -106px no-repeat;
+}
+
+// slick
+.slick-dots{
+  bottom: -15px;
+  li{
+    height: 7px;
+    width: 20px;
+    margin: 0;
+  }
+}
+.slick-prev{
+  left: -40px;
+  height: 40px;
+  line-height: 40px;
+  &:before{
+    content: "\2329";
+    font-size: 40px;
+    color: #bbb;
+  }
+}
+.slick-next{
+  right: -40px;
+  height: 40px;
+  line-height: 40px;
+  &:before{
+    content: "\232A";
+    font-size: 40px;
+    color: #bbb;
+  }
+}
+.slick-slide img{
+  display: inline-block;
+}
+
+/* end home page */

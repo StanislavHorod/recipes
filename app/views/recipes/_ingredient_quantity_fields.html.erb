@@ -1,0 +1,166 @@
+<tr>
+  <%= f.fields_for :ingredient do |ingredient| %>
+    <%= ingredient.hidden_field :user_id, value: current_user.id %>
+    <td>
+      <%= f.text_field :quantity, class: 'qty', required: true, pattern: '[0-9]+([,\.][0-9]+)?' %>
+    </td>
+
+    <%= ingredient.hidden_field :unit_type_id, {
+          value: ingredient.object.unit_type.present? ? ingredient.object.unit_type_id : UnitType.first.id,
+          class: 'ingredient_unit_type' } %>
+
+    <td class="unit-select-wrap">
+      <div class="select-wrap">
+        <% units = ingredient.object.unit_type.present? ? ingredient.object.get_units : @units %>
+        <%= f.select :unit_id,
+              options_for_select(units.collect { |c| [c.name, c.id] }, selected: f.object.unit_id),
+              { include_blank: true }, class: 'units unit_select', required: true %>
+      </div>
+    </td>
+
+    <td class="ingredient-name-wrap">
+      <%= ingredient.autocomplete_field :name, autocomplete_ingredient_name_recipes_path, class: 'autocomplete-name ingredient_name', required: true, title: 'Can\'t change' %>
+    </td>
+
+    <td class="store-wrap">
+      <%= ingredient.text_field :store, class: 'store', 'data-tooltip' => 'tooltip', title: 'Can\'t change' %>
+    </td>
+    <td class="usda-wrap" >
+      <button type="button" name="button" class="glass<%= ' set' if ingredient.object.usda_id.present? %>" data-toggle="modal" data-target="#nutrient_Modal" data-tooltip="tooltip" title="Can't change">
+      </button>
+      <div class="clickable">
+      </div>
+      <%= ingredient.hidden_field :usda_id, { value: ingredient.object.usda_id, class: 'ingredient_usda_id' } %>
+    </td>
+  <% end %>
+  <td>
+    <%= link_to_remove_association 'remove', f %>
+  </td>
+</tr>
+
+<script type="text/javascript">
+  $('.autocomplete-name').off('change');
+  $('.autocomplete-name').on('change', function() {
+    var self = $(this);
+    $.ajax({
+      url: '<%= find_ingredient_path %>',
+      type: 'POST',
+      data: {
+        user_id: '<%= current_user.id %>',
+        ingredient_name: self.val()
+      },
+      success: function(response) {
+        if (response.ingredient == null || response.ingredient == '') {
+
+          var store = self.parent().siblings('.store-wrap').children('.store').prop('disabled', false);
+
+          var usda_wrap = self.parent().siblings('.usda-wrap');
+          usda_wrap.children('.ingredient_usda_id').val('');
+          var glass = usda_wrap.children('.glass');
+          glass.removeClass('set');
+          glass.prop('disabled', false);
+
+          return;
+        }
+
+        self.parent().siblings('.ingredient_unit_type').val(response.ingredient.unit_type_id);
+
+        if (response.units !== null && response.units !== '') {
+          var unit_select = self.parent().siblings('.unit-select-wrap').children('.select-wrap').children('.unit_select');
+          unit_select.find('option').remove();
+          response.units.forEach(function(u) {
+            var option = $('<option></option>', {'value': u.id, 'text': u.name});
+            unit_select.append(option);
+          });
+        }
+
+        var store = self.parent().siblings('.store-wrap').children('.store');
+        store.val(response.ingredient.store);
+        store.prop('disabled', true);
+
+        var usda_wrap = self.parent().siblings('.usda-wrap');
+        usda_wrap.children('.ingredient_usda_id').val(response.ingredient.usda_id);
+        var glass = usda_wrap.children('.glass');
+        if (response.ingredient.usda_id !== '' && response.ingredient.usda_id !== null) {
+          glass.addClass('set');
+          glass.prop('disabled', true);
+        } else {
+          glass.removeClass('set');
+          glass.prop('disabled', false);
+        }
+      }
+    });
+  });
+
+  $('.autocomplete-name').unbind('railsAutocomplete.select');
+  $('.autocomplete-name').bind('railsAutocomplete.select', function(event, data){
+
+    $(this).parent().siblings('.ingredient_unit_type').val(data.item.unit_type_id);
+    var unit_select = $(this).parent().siblings('.unit-select-wrap').children('.select-wrap').children('.unit_select');
+    $.ajax({
+      url: '<%= get_units_by_ingredient_path %>',
+      type: 'POST',
+      data: {
+        ingredient_name: data.item.label
+      },
+      success: function(response) {
+        unit_select.find('option').remove();
+        response.units.forEach(function(u) {
+          var option = $('<option></option>', {'value': u.id, 'text': u.name});
+          unit_select.append(option);
+        });
+      }
+    });
+
+    var store = $(this).parent().siblings('.store-wrap').children('.store');
+    store.val(data.item.store);
+    store.prop('disabled', true);
+
+    var usda_wrap = $(this).parent().siblings('.usda-wrap');
+    usda_wrap.children('.ingredient_usda_id').val(data.item.usda_id);
+    var glass = usda_wrap.children('.glass');
+    if (data.item.usda_id !== "" && data.item.usda_id !== null) {
+      glass.addClass('set');
+      glass.prop('disabled', true);
+    } else {
+      glass.removeClass('set');
+      glass.prop('disabled', false);
+    }
+
+  });
+
+  $('.remove_fields.dynamic').off('click');
+  $('.remove_fields.dynamic').on('click', function() {
+    var row = $(this).parents('tr');
+    row.animate({ opacity: '0' }, 200);
+    setTimeout(function() {
+      row.css('height', '52px');
+      row.children().css('display', 'none');
+      row.animate({ height: '0px' }, 200);
+    }, 200);
+    setTimeout(function() {
+      row.remove();
+    }, 400);
+  });
+
+  $(".qty").keypress(function (event) {
+    if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+      return false;
+    }
+  });
+
+  $('.unit_select').on('change', function() {
+    var unit_type = $(this).parents('tr').children('.ingredient_unit_type');
+    var unit_select = $(this).find(':selected').val();
+    $.ajax({
+      url: '/get_type_of_unit',
+      data: {
+        'unit_id': unit_select
+      },
+      type: 'post',
+      success: function(data){
+        unit_type.val(data.type);
+      }
+    });
+  });
+</script>

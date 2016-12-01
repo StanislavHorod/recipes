@@ -1,0 +1,24 @@
+<%= render "/layouts/home_header"%>
+<div class="cont">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="confirmation authorization">
+      <h2>Resend confirmation instructions</h2>
+
+        <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+          <%= devise_error_messages! %>
+
+          <div class="field">
+            <!-- <%#= f.label :email %><br /> -->
+            <%= f.email_field :email, class: "form-control inputs", placeholder: "Email Address", autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+          </div>
+
+          <div class="actions">
+            <%= f.submit "Resend confirmation instructions", class: "submit-button" %>
+          </div>
+          <div class="users-links">
+            <%= render "devise/shared/links" %>
+          </div>
+        <% end %>
+    </div>
+  </div>
+</div>

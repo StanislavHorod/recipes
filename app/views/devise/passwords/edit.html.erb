@@ -1,0 +1,33 @@
+<%= render "/layouts/home_header"%>
+<div class="cont">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="change-pass authorization">
+      <h2>Change your password</h2>
+
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+        <%= devise_error_messages! %>
+        <%= f.hidden_field :reset_password_token %>
+
+        <div class="field">
+          <!-- <%#= f.label :password, "New password" %><br />
+          <%# if @minimum_password_length %>
+            <em>(<%#= @minimum_password_length %> characters minimum)</em><br />
+          <%# end %> -->
+          <%= f.password_field :password, autofocus: true, class: "form-control inputs", placeholder: "New password", autocomplete: "off" %>
+        </div>
+
+        <div class="field">
+          <!-- <%#= f.label :password_confirmation, "Confirm new password" %><br /> -->
+          <%= f.password_field :password_confirmation, class: "form-control inputs", placeholder: "Confirm new password" , autocomplete: "off" %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "Change my password", class: "submit-button" %>
+        </div>
+        <div class="users-links">
+          <%= render "devise/shared/links" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

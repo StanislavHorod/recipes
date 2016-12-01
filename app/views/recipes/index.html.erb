@@ -1,0 +1,128 @@
+<%= render '/layouts/header' %>
+<!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet"> -->
+
+<div class="cont">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="recipes-wrap">
+      <h1>My recipes</h1>
+      <p>
+        It all starts here! Manage and create all of your recipes below.<br>
+		    Use the "Category" and "Tag" filters to quickly find the recipe you're looking for.
+        
+      </p>
+      <section class="col-md-12 col-sm-12 col-xs-12 recipes-nav">
+        <%= form_tag  '/filter_recipes', method: :get do %>
+          <div class="row" style="margin:0;">
+            <div class="add-recipe">
+              <%= link_to new_recipe_path do %>
+                <span class="plus"></span>
+                <span id="span-add">ADD RECIPE</span>
+              <% end %>
+            </div>
+
+            <div class="filters">
+              <div class="select-wrapper">
+                <%= select_tag 'category_id', options_for_select(@categories.all.collect{ |c| [c.name, c.id] }), include_blank: 'Category', id: 'category_select' %>
+              </div>
+              <div class="select-wrapper">
+                <%= select_tag 'tag_id', options_for_select(@tags.all.collect{ |c| [c.name, c.id] }), include_blank: 'Tag', id: 'tag_select' %>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="margin:0;">
+            <div class="input_filters">
+              <% if @selected_categories.present? %>
+                <div>
+                  <span class="selected_title">Selected categories:</span>
+                  <% @selected_categories.each do |category| %>
+                    <span class="value" id="<%= category.id %>"><%= category.name %>
+                      <span class="glyphicon glyphicon-remove remove_category"></span>
+                      <%= hidden_field_tag 'categories[]', category.id %>
+                    </span>
+                  <% end %>
+                </div>
+              <% end %>
+              <% if @selected_tags.present? %>
+                <div>
+                  <span class="selected_title">Selected tags:</span>
+                  <% @selected_tags.each do |tag| %>
+                    <span class="value" id="<%= tag.id %>"><%= tag.name %>
+                      <span class="glyphicon glyphicon-remove remove_tag"></span>
+                      <%= hidden_field_tag 'tags[]', tag.id %>
+                    </span>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </section>
+
+      <section class="recipes-list">
+        <table class="table" id="table_recipes">
+          <col style="width:60%">
+          <col style="width:30%">
+          <col style="width:10%">
+          <% @recipes.each do |recipe| %>
+            <tr>
+              <td><%= recipe.name %></td>
+              <td>
+                <%= link_to 'Edit', edit_recipe_path(recipe.id) %>
+                <span class="devider">/</span>
+                <%= link_to 'Delete', '#', class: 'delete_link', 'data-id' => recipe.id %>
+              </td>
+              <td>
+                <%= link_to recipe_clone_path(recipe.id), method: :post do %>
+                  <i class="icon_files" data-toggle="tooltip" title="Clone" ></i>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      </section>
+    </div>
+  </div>
+</div>
+
+<%= render 'remove_confirmation' %>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $("[href='/recipes']").addClass("active");
+
+  $("#category_select").change(function() {
+    $(this).parents("form").submit();
+  });
+
+  $("#tag_select").change(function() {
+    $(this).parents("form").submit();
+  });
+
+  $(".remove_category, .remove_tag").on("click", function(){
+    var parent = $(this).parents(".value");
+    var form = $(this).parents("form");
+    parent.remove();
+    form.submit();
+  });
+
+  $('.delete_link').on('click', function(e) {
+    e.preventDefault();
+
+    var row = $(this).parents('tr');
+    var id = $(this).data('id');
+
+    $('.confirm_button').off('click');
+    $('.confirm_button').on('click', function functionName() {
+      $.ajax({
+        method: 'DELETE',
+        url: '<%= recipes_path %>' + '/' + id
+      }).done(function() {
+        row.remove();
+      });
+    });
+
+    $('#remove_confirmation_Modal').modal();
+  });
+});
+
+</script>

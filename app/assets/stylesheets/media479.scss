@@ -1,0 +1,136 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+@media (max-width: 479px){
+  h1{font-size: 28px;}
+  .logo{
+    width: 250px;
+    margin: 30px auto 0;
+  }
+  .new_bg h2{font-size: 30px;}
+  .trial{
+    width: 100%;
+    min-height: auto;
+    padding: 0;
+    .content-wrap{
+      width: 100%;
+      margin: 0 auto;
+      border-top-width: 10px;
+      border-bottom-width: 10px;
+      border-left-width: 10px;
+      border-right-width: 10px;
+      .content{
+        padding: 1px 15px;
+        h1{font-size: 28px;}
+      }
+    }
+  }
+  .ipad_video .text h2{font-size: 36px}
+  .info_wrap .item-info{
+    width: 100%;
+  }
+  .authorization{
+    width: 100%;
+    form{
+      width: 100%;
+    }
+  }
+  #notice-modal,
+  #alert-modal{
+    .modal-dialog{
+      width: 90%;
+      margin-top: 40%;
+    }
+  }
+  .content_and_phone{
+    max-width: 365px;
+  }
+  #phone_number{
+    width: 365px;
+    float:left;
+    position: relative;
+    margin-left: 20px;
+    text-align: left;
+    left: 0px;
+  }
+  //MY RECIPES PAGE
+  .add-recipe{
+    margin-bottom: 25px;
+  }
+  .filters{
+    .select-wrapper{
+      margin-left: 0px;
+    }
+  }
+  .navbar-nav{
+    margin: 0;
+  }
+  .footer{
+    .section:nth-child(2){
+      border: none;
+      width: 100%;
+      line-height: 0px;
+      height: 50px;
+      border-bottom: 1px solid #d8cece;
+      margin-bottom: 10px;
+    }
+    .section:nth-child(3){
+      width: 50%;
+      border-left: none;
+    }
+    .section:nth-child(4){
+      width: 50%;
+    }
+    .menu li{
+      display: inline-block;
+      width: 31%;
+      text-align: center;
+      padding: 0px 0px;
+    }
+    ul{
+      width: 100%;
+    }
+    .section{
+
+    }
+  }
+  .recipe-form{
+    .add-row-nutrition{
+      .label, .add_fields{
+        width: 90%;
+      }
+      .add_fields{
+        text-align: left;
+      }
+    }
+  }
+}
+
+
+@media (max-width: 440px){
+  .logo{
+    float: left;
+  }
+}
+
+@media (max-width: 360px){
+  .navbar-toggle{
+    margin-right: 0;
+  }
+  .logo{
+    width: 215px;
+  }
+}

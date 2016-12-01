@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= wicked_pdf_stylesheet_link_tag 'nutrition_label' %>
+  </head>
+  <body>
+    <section class="performance-facts">
+      <header class="performance-facts__header">
+        <h1 class="performance-facts__title">Nutrition Facts</h1>
+        <p>Serving Size: <span><%= @serving_size %></span></p>
+      </header>
+      <table class="performance-facts__table">
+        <thead>
+          <tr>
+            <th colspan="3" class="small-info">
+              Amount Per Serving: <span><%= @amount_per_serving %></span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th colspan="2">
+              <b>Calories</b>
+              <%= @calories.round(1) %>
+            </th>
+          </tr>
+          <tr class="thick-row">
+            <td colspan="3" class="small-info">
+              <b>% Daily Value*</b>
+            </td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <b>Total Fat</b>
+              <%= @fats.round(2) %>g
+            </th>
+            <td>
+              <b><%= (100*@fats/65).round(1) %>%</b>
+            </td>
+          </tr>
+          <tr>
+            <td class="blank-cell">
+            </td>
+            <th>
+              Saturated Fat
+              <%= @saturated_fats.round(2) %>g
+            </th>
+            <td>
+              <b><%= (100*@saturated_fats/20).round(1) %>%</b>
+            </td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <b>Cholesterol</b>
+              <%= @cholesterol.round(2) %>mg
+            </th>
+            <td>
+              <b><%= (100*@cholesterol/300).round(1) %>%</b>
+            </td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <b>Sodium</b>
+              <%= @sodium.round(2) %>mg
+            </th>
+            <td>
+              <b><%= (100*@sodium/2400).round(1) %>%</b>
+            </td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <b>Total Carbohydrate</b>
+              <%= @carbohydrate.round(2) %>g
+            </th>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <td class="blank-cell">
+            </td>
+            <th>
+              Dietary Fiber
+              <%= @fiber.round(2) %>g
+            </th>
+            <td>
+              <b><%= (100*@fiber/25).round(1) %>%</b>
+            </td>
+          </tr>
+          <tr>
+            <td class="blank-cell">
+            </td>
+            <th>
+              Sugars
+              <%= @sugars.round(2) %>g
+            </th>
+            <td>
+            </td>
+          </tr>
+          <tr class="thick-end">
+            <th colspan="2">
+              <b>Protein</b>
+              <%= @protein.round(2) %>g
+            </th>
+            <td>
+              <b><%= (100*@protein/50).round(1) %>%</b>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="small-info">* Percent Daily Values are based on a 2,000 calorie diet.</p>
+
+
+    </section>
+  </body>
+</html>

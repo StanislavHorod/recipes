@@ -1,0 +1,272 @@
+<%= form_for @group, html: { id: 'new_group', multipart: true } do |f| %>
+  <div class="meal_plan-inputs">
+    <%= f.text_field :name, class: 'form-control inputs', id: 'group-name', placeholder: 'Group name', required: true %>
+    <div id="meal_plan-inputs-inside">
+      <% for a_size in @appetite_sizes %>
+        <%= f.fields_for :appetite_size_quantities, @group.with_size(a_size) do |asq| %>
+          <div>
+            <label>Number of <%= a_size.name %> appetite individuals(<%= a_size.coefficient.to_s %> Serving/Meal):</label>
+            <%= asq.text_field :quantity, class: 'form-control inputs app-size', placeholder: '0', 'data-coeff' => a_size.coefficient %>
+            <%= asq.hidden_field :appetite_size_id, value: a_size.id %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="total">
+      <div><span class="total-label">TOTAL INDIVIDUALS</span><span class="quantity"><%= f.object.total_individuals %></span></div>
+      <div><span class="total-label">TOTAL SERVINGS</span><span class="quantity"><%= f.object.total_servings %></span></div>
+    </div>
+    <%= f.text_area :description, placeholder: 'Describe any group-specific meal or purchasing instructions here', class: 'form-control' %>
+  </div>
+
+  <hr id="horizontal-line">
+
+  <div class="col-md-12 col-sm-12 col-xs-12 meal_plan-content">
+    <div class="content-meal">
+
+      <div class="select-wrapper" id="first_sel">
+        <%= select_tag 'category_id', options_for_select(@categories.all.collect{ |c| [c.name, c.id] }), include_blank: 'Categories', id: 'category_filter' %>
+      </div>
+      <div class="select-wrapper" id="second_sel">
+        <%= select_tag 'component_id', options_for_select(@components.all.collect{ |c| [c.name, c.id] }), include_blank: 'Hide meals that contain', id: 'component_filter' %>
+      </div>
+      <div class="select-wrapper" id="third_sel">
+        <%= select_tag 'recipes', options_for_select(@recipes.collect{ |c| [c.name, c.id] }), include_blank: 'Recipes', id: 'recipes_select' %>
+      </div>
+
+      <div class="input_filters move-left">
+        <div id="selected_categories">
+          <span class="selected_title" style="display: none;">Selected categories:</span>
+        </div>
+        <div id="selected_components">
+          <span class="selected_title" style="display: none;">Hide meals that contain:</span>
+        </div>
+      </div>
+      <div class = table-scroll>
+        <table id="table_meals" class="table">
+          <col style="width:15%">
+          <col style="width:45%">
+          <col style="width:35%">
+          <col style="width:5%">
+          <thead>
+          <tr>
+            <th>#of times served</th>
+            <th>RECIPE</th>
+            <th>#number of individuals served</th>
+            <th>#</th>
+          </tr>
+          </thead>
+          <tbody>
+            <% if @group.persisted? %>
+              <% for recipe in @group_recipes %>
+                <%= f.fields_for :recipe_quantities, @group.with_recipe(recipe) do |rq| %>
+                  <tr id="<%= recipe.id %>">
+                    <td>
+                      <%= rq.text_field :quantity, class: 'recipe_quantity' %>
+                      <%= rq.hidden_field :recipe_id, value: recipe.id %>
+                    </td>
+                    <td class="recipe_name">
+                      <%= recipe.name %>
+                    </td>
+                    <td>
+                      <%= rq.text_field :individuals_served, class: 'range',
+                                        'data-slider-id' => 'ex1Slider',
+                                        'data-slider-min' => '0',
+                                        'data-slider-max' => f.object.total_individuals ? f.object.total_individuals : '20',
+                                        'data-slider-value' => rq.object.individuals_served ? rq.object.individuals_served : '0',
+                                        'data-slider-step' => '1' %>
+                    </td>
+                    <td>
+                      <%= link_to 'remove' %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <%= f.submit 'SAVE MEAL PLAN & CREATE SHOPPING LIST', class: 'submit-button make-thiner' %>
+<% end %>
+
+<script type="text/javascript">
+$(document).ready(function () {
+  $(".range").slider({
+    tooltip: 'always',
+    formatter: function(value) {
+      return value;
+    }
+  });
+
+////////////////////////// INPUT VALIDATION //////////////////
+  $('#meal_plan-inputs-inside').find('input').keypress(function (e) {
+    //if the letter is not digit then display error and don't type anything
+    if (this.value.length == 0 && e.which == 48 ){
+      return false;
+    }
+    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+      return false;
+    }
+  });
+
+/////////////////////////// TOTAL LOGIC //////////////////////
+  $('#meal_plan-inputs-inside').on('keyup','input',function(){
+    var sum = 0;
+    var servings = 0;
+    $('.app-size').each(function(){
+      if($(this).val().length !== 0){
+        sum += parseInt($(this).val());
+        servings += ($(this).attr('data-coeff')*$(this).val());
+      }
+    });
+    $('.quantity').first().text(sum);
+    $('.quantity').last().text(servings);
+
+    $.each($(".range"), function(elem, index){ ////////////////////// not working !!!!!!!!!!!!!!!!!!!!!
+      if($(elem).attr('data-slider-value') > sum){
+        $(elem).attr('data-slider-value', sum);
+      }
+      $(elem).attr('data-slider-max', sum);
+    });
+
+  ///////////////////// ENABLE\DISABLE NEXT BUTTON //////////////////
+    if($('.quantity').first().text() !== '0'){
+      $('.next').attr('disabled',false);
+      $('.next').hover(function(){
+        $(this).css("background-color", "#DE993C");
+      },function () {
+        $(this).css('background-color', '#EFA94A')
+      });
+    }
+  });
+
+////////////////////////////// FILTERING ////////////////////////////////
+  $('#category_filter').on('change', function(){
+    var name = $(this).find('option:selected').text();
+    var val = $(this).find('option:selected').val();
+    $('option:selected', this).remove();
+    $('#selected_categories').append('<span class="value" id="'+val+'"><span class="category_name">'+name+'</span><span class="glyphicon glyphicon-remove remove_category"></span></span>');
+    filter_recipes();
+    $('#selected_categories:has(.value)').find('.selected_title').show();
+  });
+  $('#selected_categories').on('click', '.remove_category', function(){
+    var parent = $(this).parents(".value");
+    var name = parent.find('.category_name').text();
+    var key = $(this).attr('id');
+    $('#category_filter').append($("<option></option>").attr(name, key).text(name));
+    parent.remove();
+    filter_recipes();
+    $('#selected_categories:not(:has(.value))').find('.selected_title').hide();
+  });
+
+  $('#component_filter').on('change', function(){
+    var name = $(this).find('option:selected').text();
+    var val = $(this).find('option:selected').val();
+    $('option:selected', this).remove();
+    $('#selected_components').append('<span class="value" id="'+val+'"><span class="component_name">'+name+'</span><span class="glyphicon glyphicon-remove remove_component"></span></span>');
+    filter_recipes();
+    $('#selected_components:has(.value)').find('.selected_title').show();
+  });
+  $('#selected_components').on('click', '.remove_component', function(){
+    var parent = $(this).parents(".value");
+    var name = parent.find('.component_name').text();
+    var key = $(this).attr('id');
+    $('#component_filter').append($("<option></option>").attr(name, key).text(name));
+    parent.remove();
+    filter_recipes();
+    $('#selected_components:not(:has(.value))').find('.selected_title').hide();
+  });
+
+  function filter_recipes(){
+    var categories = $.map($(".category_name"), function(elem, index){
+      return $(elem).text();
+    });
+    var components = $.map($(".component_name"), function(elem, index){
+      return $(elem).text();
+    });
+    $.ajax({
+      url: '/group_filter_recipes',
+      data: {
+        'categories': categories,
+        'components': components
+      },
+      type: 'post',
+      success: function (data) {
+        $("#recipes_select option").remove();
+        $('#recipes_select').append(new Option('Recipes', ''));
+        data.recipes.forEach(function(recipe){
+          $('#recipes_select').append(new Option(recipe.name, recipe.id));
+        });
+      }
+    });
+  }
+
+  $('#recipes_select').on('change', function(){
+    var name = $(this).find('option:selected').text();
+    var val = $(this).find('option:selected').val();
+    $.ajax({
+      url: '/get_recipe_by_id',
+      data: {
+        'recipe_id': val
+      },
+      type: 'post',
+      success: function(data) {
+        var recipe = data.recipe;
+
+        var i = $('#table_meals tr').length - 1;
+
+        var recipe_quantity = $('<input/>', {
+          'name': 'group[recipe_quantities_attributes]['+i+'][quantity]',
+          'class': 'recipe_quantity',
+          'type': 'text',
+          'id': 'group_recipe_quantities_attributes_'+i+'_quantity'
+        });
+
+        var recipe_quantity_2 = $('<input/>', {
+          'name': 'group[recipe_quantities_attributes]['+i+'][recipe_id]',
+          'value': recipe.id,
+          'type': 'hidden',
+          'id': 'group_recipe_quantities_attributes_'+i+'_recipe_id'
+        });
+
+        var slider = $('<input/>', {
+          'class': 'range',
+          'data-slider-id': 'ex1Slider',
+          'data-slider-min': '0',
+          'data-slider-max': '27',
+          'data-slider-value': '0',
+          'data-slider-step': '1',
+          'type': 'text',
+          'value': '0',
+          'name': 'group[recipe_quantities_attributes]['+i+'][individuals_served]',
+          'id': 'group_recipe_quantities_attributes_'+i+'_individuals_served'
+        });
+
+        $('#table_meals tbody').append(
+            $('<tr/>', { 'id': recipe.id, 'class': 'block_recipe' }).append(
+                $('<td/>', {}).append(recipe_quantity).append(recipe_quantity_2),
+                $('<td/>', { 'class': 'recipe_name' }).append(recipe.name),
+                $('<td/>', {}).append(slider),
+                $('<td/>', {}).append('<a href="">remove</a>')
+            ),
+            $('<input/>', {
+              'type': 'hidden',
+              'name': 'group[recipe_quantities_attributes]['+i+'][id]',
+              'id': 'group_recipe_quantities_attributes_'+i+'_id'
+            })
+        );
+
+        $(".range").slider({
+          tooltip: 'always',
+          formatter: function(value) {
+            return value;
+          }
+        });
+      }
+    });
+  });
+});
+
+</script>

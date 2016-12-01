@@ -1,0 +1,39 @@
+.inventory_content{
+  text-align: center;
+  margin: 0 auto;
+  .glass{
+    &:hover{
+      opacity: 0.7;
+      //background-color: red;
+    }
+  }
+  .calc:hover::before{
+      opacity: 0.7;
+      }
+  .select-wrap{
+    float: left;
+  }
+}
+#inventory_submit{
+ width: 40%;
+ min-width: 200px;
+ margin-top: 50px;
+ margin-bottom: 50px;
+ &:hover{
+   background-color: #515B42;
+ }
+}
+#table_ingredients{
+  td{
+    input,span,select{
+      float: left;
+    }
+    span{
+      text-align: left;
+    }
+    input{
+      overflow: none;
+      padding-top: 10px;
+    }
+  }
+}

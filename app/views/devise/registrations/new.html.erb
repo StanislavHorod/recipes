@@ -1,0 +1,48 @@
+<%= render "/layouts/home_header"%>
+<div class="cont">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <h2 class="title">Get Started</h2>
+    <p class="explanation">
+How much would you save if you cut down food waste by 20%? How many hours would you save cutting the time it takes to plan meals and shopping lists in half (or more!). Get started with a 30 day trial for free and find out for yourself. After the first month, pay only $9 per month. Pay annually and save 20%: only $87 per year!
+    </p>
+    <div class="registration authorization">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= devise_error_messages! %>
+
+        <div class="field">
+          <%= f.text_field :first_name, autofocus: true, class: "form-control inputs", placeholder: "First Name" %>
+        </div>
+
+        <div class="field">
+          <%= f.text_field :last_name, class: "form-control inputs", placeholder: "Last Name" %>
+        </div>
+
+        <div class="field">
+          <%#= f.label :email %>
+          <%= f.email_field :email, class: "form-control inputs", placeholder: "Email Address", required: true %>
+        </div>
+
+        <div class="field">
+          <%#= f.label :password %>
+          <%= f.password_field :password, autocomplete: "off", class: "form-control inputs", placeholder: "Password", required: true %>
+          <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <% end %>
+        </div>
+
+        <div class="field">
+          <%#= f.label :password_confirmation %>
+          <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control inputs", placeholder: "Confirm Password", required: true %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "Registration", class: "submit-button" %>
+        </div>
+      <div class="users-links">
+        <%= render "devise/shared/links" %>
+      </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>

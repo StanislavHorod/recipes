@@ -1,0 +1,137 @@
+<%= render '/layouts/header' %>
+<div class="col-md-12 col-sm-12 col-xs-12 inventory_content">
+  <h1>INGREDIENTS</h1>
+  <p>
+    Below you'll find a list of ingredients used in your recipes. <br>
+    You can filter list by recipes or edit ingredients to include <br>
+	cost estimates or USDA Nutrient Database information.
+  </p>
+
+  <div class="col-md-10 col-sm-10 col-centered col-centered">
+    <%= form_tag  ingredients_path, method: :get do %>
+      <div class="filters">
+        <div class="select-wrapper">
+          <%= select_tag 'recipe_id', options_for_select(@recipes.all.collect{ |c| [c.name, c.id] }, params[:recipe_id]), include_blank: 'All recipes', id: 'recipe_select' %>
+        </div>
+      </div>
+    <% end %>
+
+    <%= form_tag update_inventory_path, method: :post do %>
+      <div class="recipe-form">
+        <table id="table_ingredients" class="table ingredients">
+            <col style="width:14%">
+            <col style="width:21%">
+            <col style="width:13%">
+            <col style="width:9%">
+            <col style="width:14%">
+            <col style="width:13%">
+            <col style="width:16%">
+          <thead>
+            <tr>
+              <th>ITEM</th>
+              <th>INVENTORY & PURCHASING NOTES</th>
+              <th>MEALS</th>
+              <th>STORE</th>
+              <th>USDA NUTRIENT DATA</th>
+              <th>COST ESTIMATES</th>
+            </tr>
+          </thead>
+          <tbody id="ingredients">
+            <% for ingredient in @ingredients %>
+              <%= fields_for 'ingredients[]', ingredient do |f| %>
+                <tr id="<%= ingredient.id %>">
+                  <td>
+                    <%= f.text_field :name, class: 'ingredient_name' %>
+                  </td>
+
+                  <%= f.hidden_field :unit_type_id, { value: f.object.unit_type_id, class: 'unit_type' } %>
+
+                  <td>
+                    <%= f.text_field :note %>
+                  </td>
+                  <td>
+                    <span>
+                      <% ingredient.recipes.each do |recipe| %>
+                        <%= link_to recipe.name+" ,", edit_recipe_path(recipe.id) %>
+                      <% end %>
+                    </span>
+                  </td>
+                  <td>
+                    <%= f.text_field :store %>
+                  </td>
+                  <td>
+                    <button type="button" name="button" class="glass" data-toggle="modal" data-target="#nutrient_Modal"
+                            <% if f.object.usda_id %>style="background-color:#C3D1C7;border-radius:3px"<% end %>>
+                    </button>
+                    <%= f.hidden_field :usda_id, { value: f.object.usda_id, class: 'ingredient_usda_id' } %>
+                  </td>
+                  <td>
+                    <button type="button" name="button" class="calc" id="ingredient_costs" data-toggle="modal" data-target="#calc_Modal"></button>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <%= submit_tag 'SAVE CHANGES', id: 'inventory_submit', class: 'submit-button', disabled: true %>
+    <% end %>
+  </div>
+</div>
+
+<%= render 'ingredients/popups/costs' %>
+<%= render 'recipes/usda_ingredients' %>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $("[href='/ingredients']").addClass("active");
+////////////////////////// ENABLE\DISABLE SAVE BUTTON //////////////////
+  $('#table_ingredients').on('change','input, select',function traceChange(){
+    $("#inventory_submit").prop('disabled',false);
+    $("#inventory_submit").hover(function(){
+        $(this).css("background-color", "#19462f");
+      },function(){
+        $(this).css("background-color", '#515B42');
+      });
+  });
+
+//////////////////////////  COSTS MODAL ////////////////////////////////
+  $(".ingredients").on("click", "#ingredient_costs", function() {
+    if ($("#price_input").val() == "") {
+      $("#dolar_sign").css("color", "#B5B5B5");
+    } else {
+      $("#dolar_sign").css("color", "black");
+    }
+
+    $('#price_ingredient_id').val($(this).closest('tr').attr('id'));
+    $('#select_price_unit').find('option').remove().end();
+    var ingredient_name = $(this).closest('tr').find('.ingredient_name').val();
+
+    $.ajax({
+      url: '/get_units_by_ingredient',
+      data: {
+        'ingredient_name': ingredient_name
+      },
+      type: 'post',
+      success: function (data) {
+        for (var i in data.units) {
+          $('#select_price_unit').append(new Option(data.units[i].name, data.units[i].id));
+        }
+        $('#select_price_unit').val(data.units[0].id);
+        $('#select_price_unit').trigger('change');
+      }
+    });
+
+    $(".submit-button").on("click", function(e) {
+      e.preventDefault();
+      $('#create_price_form').submit();
+      $('#calc_Modal').modal('hide');
+    });
+  });
+});
+
+/////////////////////////////// FILTERING /////////////////////////////////
+  $("#recipe_select").change(function() {
+    $(this).parents("form").submit();
+  });
+</script>

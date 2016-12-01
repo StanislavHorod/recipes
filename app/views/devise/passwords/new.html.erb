@@ -1,0 +1,27 @@
+<%= render "/layouts/home_header"%>
+<div class="cont">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="forgot-password authorization">
+      <h2>Forgot your password?</h2>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
+        Proin et porta nunc. In aliquam lacinia ullamcorper.
+      </p>
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <%= devise_error_messages! %>
+
+        <div class="field">
+          <!-- <%#= f.label :email %><br /> -->
+          <%= f.email_field :email, class: "form-control inputs", placeholder: "Email Address", autofocus: true %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "Send", class: "submit-button" %>
+        </div>
+      <div class="users-links">
+        <%= render "devise/shared/links" %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

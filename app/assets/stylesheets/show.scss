@@ -1,0 +1,145 @@
+.show-content{
+  margin: 0 auto;
+  float: none;
+  clear: both;
+  h1{
+    font-family: 'HelveticaNeueLight';
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+    padding-bottom: 30px;
+  }
+  .upper-wrap{
+    height: 135px;
+    .total{
+      width: 60%;
+      float: left;
+      >span{
+        font-family: 'HelveticaNeueLight';
+        font-size: 16px;
+      }
+      div{
+        width: 85%;
+        padding-top: 15px;
+        font-family: 'HelveticaNeueLight';
+        font-size: 18px;
+        font-weight: bold;
+        .total-label{
+          width: 200px;
+        }
+        .quantity{
+          float: right;
+          font-weight: normal;
+        }
+      }
+      .pull-down{
+        padding-bottom: 25px;
+      }
+    }
+    .pdf-button{
+      padding-top: 20px;
+      padding-left: 13px;
+      width: 130px;
+      height: 130px;
+      background-color: #d9e1dc;
+      border-radius: 10px;
+      float: right;
+      position: relative;
+      cursor: pointer;
+      span{
+        margin-top: 25px;
+        font-weight: bold;
+        font-family: 'HelveticaNeueLight';
+        font-size: 13px;
+      }
+      &::before{
+        content: "";
+        position: absolute;
+        top: 40px;
+        left: 31px;
+        width: 70px;
+        height: 70px;
+        background: image_url('sprite.png') -157px -90px no-repeat;
+      }
+    }
+  }
+  .small-table{
+    margin-top: 35px;
+    .text-left{
+      td{
+        text-align: left;
+      }
+      td:first-child{
+        padding-left: 5px;
+      }
+    }
+    tr{
+      height: 65px;
+      border-bottom: 10px solid #f9faf8;
+      .check-icon{
+        &::before{
+          content: "";
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          top: 21px;
+          left: 27px;
+          background: image_url('sprite.png') -115px -95px no-repeat;
+        }
+      }
+      .checkbox-icon{
+        input[type=checkbox]{
+          display: none;
+          cursor: pointer;
+        }
+        input[type=checkbox] + label {
+          position: relative;
+          border: 1px solid #919594;
+          border-radius: 2px;
+          height: 22px;
+          width: 22px;
+          margin-top: 8px;
+          margin-left: 5px;
+          display: inline-block;
+          padding: 0 0 0 0px;
+        }
+        input[type=checkbox]:checked + label:before{
+          //background: #0080FF; //colour or image
+          content: "\2713";
+          position: absolute;
+          left: 0px;
+          top: -2px;
+          color: rgb(145,149,148);
+          text-align: center;
+          font-size: 20px;
+          height: 22px;
+          width: 22px;
+          margin: 0 5px 0 0;
+          //display:inline-block;
+          padding: 0 0 0 0px;
+        }
+      }
+      td{
+        text-align: center;
+        vertical-align: middle;
+      }
+      td:first-child{
+        padding-left: 30px;
+        text-align: left;
+      }
+    }
+    thead{
+      font-family: 'SegoeUI';
+      font-size: 16px;
+      font-weight: bold;
+      background-color: #d9e1dc;
+    }
+    tbody{
+      td{
+        font-family: 'HelveticaNeueLight';
+        font-size: 16px;
+        background-color: #eee;
+      }
+    }
+  }
+}

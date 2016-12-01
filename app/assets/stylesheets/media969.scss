@@ -1,0 +1,61 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+@media (max-width: 969px) {
+  .ipad_video .text{
+    margin-top: 100px;
+  }
+  #notice-modal,
+  #alert-modal{
+    .modal-dialog{
+      margin-top: 30%;
+    }
+  }
+}
+@media (max-width: 1000px){
+  ////CREATE MEAL PLAN PAGE/////
+  .meal_plan-inputs{
+    text-align: left;
+    #meal_plan-inputs-inside{
+      div{
+        float: left;
+      }
+      label{
+        float: left;
+        width: 100%;
+      }
+      input{
+        float: left;
+      }
+    }
+  }
+  .content-meal{
+    #first_sel{
+      margin-left: 0px;
+    }
+    #second_sel{
+      margin-right: 0px;
+    }
+  }
+}
+@media (max-width: 800px) and (min-width: 768px) {
+  .header{
+    .cont > div{
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+  }
+}

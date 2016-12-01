@@ -1,0 +1,372 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ * require_tree .
+ * require_self
+ *= require bootstrap-slider
+ */
+
+@import 'bootstrap.min';
+@import 'slick';
+@import 'slick-theme';
+@import 'home_page';
+@import 'authorization';
+@import 'faqs';
+@import 'about_us';
+@import 'contact_us';
+@import 'resipes_index';
+@import 'resipes_new';
+@import 'ingredients';
+@import 'groups';
+@import 'textext.core';
+@import 'textext.plugin.tags';
+@import 'textext.plugin.autocomplete';
+@import 'textext.plugin.clear';
+@import 'textext.plugin.focus';
+@import 'textext.plugin.prompt';
+@import 'textext.plugin.arrow';
+@import 'show';
+@import 'nutrition_label';
+@import 'meal_plan';
+@import 'profile';
+@import 'edit';
+
+//#############################################################################
+// FONTS
+//#############################################################################
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: font_url('Glyphicon/glyphicons-halflings-regular.eot?') format('eot'),
+       font_url('Glyphicon/glyphicons-halflings-regular.woff') format('woff'),
+       font_url('Glyphicon/glyphicons-halflings-regular.woff2') format('woff2'),
+       font_url('Glyphicon/glyphicons-halflings-regular.ttf')  format('truetype'),
+       font_url('Glyphicon/glyphicons-halflings-regular.svg') format('svg');
+}
+@font-face {
+  font-family: 'BentonSansBook';
+  src: font_url('BentonSans/BentonSansBook.eot?') format('eot'),
+       font_url('BentonSans/BentonSansBook.otf')  format('opentype'),
+       font_url('BentonSans/BentonSansBook.woff') format('woff'),
+       font_url('BentonSans/BentonSansBook.ttf')  format('truetype'),
+       font_url('BentonSans/BentonSansBook.svg#benton_sans_book') format('svg');
+}
+@font-face {
+  font-family: 'SegoeUI';
+  src: font_url('SegoeUI/SegoeUIRegular.eot?') format('eot'),
+       font_url('SegoeUI/SegoeUIRegular.otf')  format('opentype'),
+       font_url('SegoeUI/SegoeUIRegular.woff') format('woff'),
+       font_url('SegoeUI/SegoeUIRegular.ttf')  format('truetype'),
+       font_url('SegoeUI/SegoeUIRegular.svg#segoe_ui') format('svg');
+    font-weight: normal;
+}
+@font-face {
+  font-family: 'SegoeUI';
+  src: font_url('SegoeUI/SEGOEUIB.eot?') format('eot'),
+       font_url('SegoeUI/SEGOEUIB.otf')  format('opentype'),
+       font_url('SegoeUI/SEGOEUIB.woff') format('woff'),
+       font_url('SegoeUI/SEGOEUIB.ttf')  format('truetype'),
+       font_url('SegoeUI/SEGOEUIB.svg#segoe_ui') format('svg');
+    font-weight: bold;
+}
+@font-face {
+  font-family: 'SegoeUI';
+  src: font_url('SegoeUI/SEGOEUII.eot?') format('eot'),
+       font_url('SegoeUI/SEGOEUII.otf')  format('opentype'),
+       font_url('SegoeUI/SEGOEUII.woff') format('woff'),
+       font_url('SegoeUI/SEGOEUII.ttf')  format('truetype'),
+       font_url('SegoeUI/SEGOEUII.svg#segoe_ui') format('svg');
+  font-style: italic;
+}
+@font-face {
+  font-family: 'SegoeUIBlack';
+  src: font_url('SegoeUI/SEGUIBL.eot?') format('eot'),
+       font_url('SegoeUI/SEGUIBL.otf')  format('opentype'),
+       font_url('SegoeUI/SEGUIBL.woff') format('woff'),
+       font_url('SegoeUI/SEGUIBL.ttf')  format('truetype'),
+       font_url('SegoeUI/SEGUIBL.svg#segoe_ui') format('svg');
+}
+@font-face {
+  font-family: 'Lobster';
+  src: font_url('Lobster/Lobster.eot?') format('eot'),
+       font_url('Lobster/Lobster.otf')  format('opentype'),
+       font_url('Lobster/Lobster.woff') format('woff'),
+       font_url('Lobster/Lobster.ttf')  format('truetype'),
+       font_url('Lobster/Lobster.svg#lobster') format('svg');
+}
+@font-face {
+  font-family: 'HelveticaNeueLight';
+  src: font_url('HelveticaNeue/helveticaneuecyr-light.eot?') format('eot'),
+       font_url('HelveticaNeue/helveticaneuecyr-light.otf')  format('opentype'),
+       font_url('HelveticaNeue/helveticaneuecyr-light.woff') format('woff'),
+       font_url('HelveticaNeue/helveticaneuecyr-light.ttf')  format('truetype'),
+       font_url('HelveticaNeue/helveticaneuecyr-light.svg#helvetica_neue_cyr') format('svg');
+}
+@font-face {
+  font-family: 'HelveticaNeueRoman';
+  src: font_url('HelveticaNeue/helveticaneuecyr-roman.eot?') format('eot'),
+       font_url('HelveticaNeue/helveticaneuecyr-roman.otf')  format('opentype'),
+       font_url('HelveticaNeue/helveticaneuecyr-roman.woff') format('woff'),
+       font_url('HelveticaNeue/helveticaneuecyr-roman.ttf')  format('truetype'),
+       font_url('HelveticaNeue/helveticaneuecyr-roman.svg#helvetica_neue_cyr') format('svg');
+}
+@font-face {
+  font-family: 'slick';
+  src: font_url('Slick/slick.eot?') format('eot'),
+       font_url('Slick/slick.woff') format('woff'),
+       font_url('Slick/slick.ttf')  format('truetype'),
+       font_url('Slick/slick.svg#slick') format('svg');
+}
+//#############################################################################
+
+$link: #6CA085;
+$dark-green: #515B42;
+$but-hover: #4e7561;
+
+body{
+  background: #f9faf8 image_url("bg_header.png") center top repeat-x;
+  font-family: "SegoeUI", sans-serif;
+}
+
+*{
+  outline: none;
+}
+ul{
+  padding: 0;
+  margin: 0;
+}
+
+h1, h2, h3{
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+h1{
+  font-size: 40px;
+}
+h3{
+  letter-spacing: 1px;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+a{
+  color: $link;
+  &:hover{
+    color: $dark-green;
+    text-decoration: none;
+  }
+}
+
+p{
+  font-family: 'HelveticaNeueLight';
+  letter-spacing: 1px;
+  font-size: 16px;
+}
+
+.wrap{
+  float: left;
+  width: 100%;
+}
+.cont{
+  max-width: 1217px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+/* header */
+
+.header{
+  float: left;
+  width: 100%;
+  margin-bottom: 70px;
+  color: #fff;
+  text-transform: uppercase;
+  &.home{
+    margin-bottom: 0;
+  }
+  .top-section{
+    height: 30px;
+    line-height: 30px;
+    background: $dark-green;
+    span{
+      margin-left: 15px;
+      border-bottom: 1px solid #ccc;
+    }
+    li{
+      padding: 3px 15px;
+    }
+    a{
+      color: #fff;
+      padding-top: 3px;
+      border-top: 1px solid transparent;
+      &:hover{
+        color: #ececec;
+        border-color: #ececec;
+      }
+    }
+    .user_signed_in{
+      float: right;
+    }
+  }
+}
+.main-menu{
+  // float: left;
+}
+.navbar-toggle{
+  float: left;
+  .icon-bar{
+    width: 36px;
+    height: 6px;
+    background: $dark-green;
+    border-radius: 3px;
+  }
+}
+.navbar-toggle .icon-bar + .icon-bar{
+  margin-top: 3px;
+}
+.menu{
+  li{
+    list-style: none;
+    display: inline-block;
+    text-transform: uppercase;
+    padding: 30px 15px;
+    a{
+      font-size: 14px;
+      font-family: "BentonSansBook", sans-serif;
+      color: #919594;
+      line-height: 20px;
+      text-decoration: none;
+      padding: 5px 0 0;
+        border-top: 1px solid transparent;
+      &:hover, &:focus, &.active{
+        color: $dark-green;
+        background: none;
+        border-color: $dark-green
+      }
+    }
+  }
+}
+.login_buttons{
+  float: right;
+}
+.logo{
+  text-align: center;
+  img{
+    margin: 0 auto;
+    max-width: 100%;
+  }
+}
+.all-page{
+  .logo{
+    max-width: 250px;
+    margin: -70px auto 0;
+  }
+}
+/* end header */
+
+/* footer */
+.footer{
+  float: left;
+  width: 100%;
+  padding: 15px 0;
+  background-color: #fff;
+  .logo img{ max-width: 90%; }
+  .section{
+    // padding-left: 85px;
+    height: 115px;
+    line-height: 115px;
+    border-left: 1px solid #d8cece;
+    &:last-child{
+      border-right: 1px solid #d8cece;
+    }
+  }
+  .linkup{
+    color: #919594;
+    font-family: 'BentonSansBook', sans-serif;
+    margin: 40px auto;
+    max-width: 150px;
+    line-height: 20px;
+    text-align: center;
+  }
+  .menu li{
+    margin: 0 auto;
+    clear: left;
+    padding-top: 10px;
+    padding-bottom: 0;
+  }
+  .help{
+    max-width: 180px;
+    text-align: center;
+    margin: 30px auto;
+    line-height: 2;
+    span{
+      color: #131313;
+    }
+    .contants{
+      display: block;
+      color: #919594;
+      font-family: 'BentonSansBook', sans-serif;
+      span{
+        display: inline-block;
+        margin-right: 10px;
+        text-align: center;
+        border: 1px solid #919594;
+        color: #919594;
+        border-radius: 50%;
+        width: 15px;
+        height: 15px;
+        font-size: 11px;
+        line-height: 15px;
+      }
+    }
+  }
+}
+/* end footer */
+
+/* notice & alert popups */
+
+#notice-modal,
+#alert-modal{
+  .modal-dialog{
+    width: 770px;
+    margin-top: 20%;
+  }
+  .modal-content{
+    border-radius: 15px;
+    border: none;
+    box-shadow: none;
+    background-color: rgba(255, 255, 255, 0.9);
+
+  }
+  .modal-body{
+    color: #486c5a;
+    font-size: 19px;
+    padding: 30px;
+    font-family: "HelveticaNeueLight";
+    letter-spacing: 1.5px;
+  }
+}
+#alert-modal{
+  .modal-body{color: #9E0300;}
+}
+
+.modal-backdrop.in{
+  opacity: 0.1;
+}
+
+/* end popups */
+
+@import 'media1320';
+@import 'media969';
+@import 'media767';
+@import 'media479';
