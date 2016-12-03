@@ -10,8 +10,8 @@
       </p>
     </div>
     <div class="mail" >
-      <span>lub4uk07@gmail.com</span>
-      <span>first_name last_name</span>
+      <span><%= current_user.email %></span>
+      <span><%= current_user.full_name %></span>
     </div>
     <input type="button" name="name" value="EDIT PROFILE" class="submit-button" >
     <div id="edit-page" style="display:none; ">
@@ -26,8 +26,8 @@
         </div>
       </div>
       <div class="right-animation">
-        <%= image_tag 'profile_animation2.png', id: "right-img"%>
-        <%= image_tag 'arrow.png', class: "arrow-img"%>
+        <%= image_tag 'profile_animation2.png', id: 'right-img' %>
+        <%= image_tag 'arrow.png', class: 'arrow-img' %>
         <p class="arrow-text">
           and save <span>20%</span>
         </p>
